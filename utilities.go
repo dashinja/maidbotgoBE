@@ -59,7 +59,5 @@ type DestroyerInterface interface {
 	stats(name string) DestroyerStatMethodType
 }
 
-// func ()
-
 func main() {
 }
