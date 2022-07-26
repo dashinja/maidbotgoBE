@@ -14,6 +14,7 @@ type DataObject struct {
 type DestroyerType struct {
 	name, botType                  string
 	health, attack, defense, speed int
+	DestroyerInterface
 }
 
 type DestroyerCoreProperties struct {
@@ -57,6 +58,40 @@ type DestroyerInterface interface {
 		speed, eta int
 	}
 	stats(name string) DestroyerStatMethodType
+}
+
+
+type WorkTaskProp struct {
+	workDone int
+	currentTask string
+	nextTask int
+	choreList string
+	taskIsComplete bool
+}
+
+type CounterProp struct {
+	choreClick int
+	submitClick int
+	progressInterval int
+}
+
+type ExecutionerStateProps struct {
+	workTasks WorkTaskProp
+	counters CounterProp
+	ExecutionerStateInterface
+}
+
+type ExecutionerStateInterface interface {
+	//TODO: These interface methods need better return types. Since these will be used outside of the context of react initially - more exporation needed.
+	setWorkTasks(workTask WorkTaskProp) any
+	setCounters(counters CounterProp) any
+}
+
+func Executioner (nextArray []string, bot DestroyerType, scoreUpdate any, count int, state ExecutionerStateProps) {
+	executionCount := count
+
+	//BUGFIX: wrong approach - executioner needs full refactor as it is a react based function. State should be sent via API call, and handled here, with fully transformed data supplied to FE
+	// state.setWorkTasks()
 }
 
 func main() {
