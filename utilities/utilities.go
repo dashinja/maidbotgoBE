@@ -88,7 +88,7 @@ type ExecutionerStateInterface interface {
 }
 
 func Executioner (nextArray []string, bot DestroyerType, scoreUpdate any, count int, state ExecutionerStateProps) {
-	executionCount := count
+	// executionCount := count
 
 	//BUGFIX: wrong approach - executioner needs full refactor as it is a react based function. State should be sent via API call, and handled here, with fully transformed data supplied to FE
 	// state.setWorkTasks()
