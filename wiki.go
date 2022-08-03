@@ -62,5 +62,9 @@ func loadPage(title string) (*Page, error) {
 }
 
 func saveHander( w http.ResponseWriter, r *http.Request) {
-	title := r.
+	title := r.URL.Path[len("/save/"):]
+	body := r.FormValue(("body"))
+	p := &Page{Title: title, Body: []byte(body)}
+	p.save()
+	http.Redirect(w, r, "/view/"+title, http.StatusFound)
 }
