@@ -16,7 +16,7 @@ type Page struct {
 func main() {
 	http.HandleFunc("/view/", viewHandler)
 	http.HandleFunc("/edit/", editHandler)
-	// http.HandlerFunc("/save/", saveHandler)
+	http.HandlerFunc("/save/", saveHandler)
 	port := "3000"
 	fmt.Println("Server running on port:", port)
 	log.Fatal(http.ListenAndServe(":"+port, nil))
@@ -30,7 +30,11 @@ func renderTemplate(w http.ResponseWriter, tmpl string, p *Page) {
 
 func viewHandler(w http.ResponseWriter, r *http.Request) {
 	title := r.URL.Path[len("/view/"):]
-	p, _ := loadPage(title)
+	p, err := loadPage(title)
+	if err != nil {
+		http.Redirect(w, r, "/edit/" + title, http.StatusFound)
+		return
+	}
 	renderTemplate(w, "view", p)
 }
 
@@ -55,4 +59,8 @@ func loadPage(title string) (*Page, error) {
 		return nil, err
 	}
 	return &Page{Title: title, Body: body}, nil
+}
+
+func saveHander( w http.ResponseWriter, r *http.Request) {
+	title := r.
 }
